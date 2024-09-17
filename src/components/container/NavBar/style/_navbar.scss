@@ -1,0 +1,95 @@
+@use '../../../../style/components/base/mixins' as m;
+@use '../../../../style/components/base/variables' as v;
+
+.navbar{
+    background-color: v.$second-bg-color;
+    height: 19rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 .5rem 1rem rgba(179, 172, 172, 0.23);
+}
+
+.nav_logo{
+    font-family: v.$fuente2;
+    font-weight: bold;
+    font-size: 4rem;
+    margin: 15px;
+    color: v.$text-color;
+    text-transform: uppercase;
+
+    & h3{
+        font-size: 2rem;
+        text-transform: lowercase;
+    }
+}
+.nav_items a{
+    margin: 15px;
+    font-size: 1.5rem;
+    color:v.$text-color;
+    font-family: v.$fuente2;
+    position: relative;
+    text-decoration: none;
+    &:hover{
+        color: rgb(168, 132, 3);
+    }
+}
+.nav_toggle{
+    display: none;
+    
+
+}
+
+@media (max-width: 600px) {
+    .navbar{
+        background-color: v.$second-bg-color;
+        width: 100%;
+        top: 0px;
+  }
+
+    
+    .nav_items{
+       position: absolute;
+        top: 18vh;
+        left: 0;
+        background: v.$second-bg-color;
+        color:v.$text-color;
+        display: flex;
+        flex-direction: column;
+        width: 100%;       
+        transform: translateX(-100%);
+        transition: 0.3s ease all;
+        z-index: 999;
+        opacity: .9;
+        border-radius: 0px 0px 8px 8px;
+        box-shadow: 0 1rem 1rem rgba(192, 201, 213, 0.497);
+    }
+    .nav_items.open{
+        transform: translateX(0) !important;
+        //left: 65.5rem;
+    }
+    .nav_toggle{
+        display: flex !important;
+        flex-direction: column;                
+        margin: 3px 15px;
+    }
+    .nav_toggle span{
+        width: 30px;
+        height: 4px;
+        background: v.$text-color;
+        margin-bottom: 5px;
+        border-radius: 2px;             
+        transform-origin: 5px 0px;
+        transition: all 0.2s linear;
+    }
+    .nav_toggle.open > span{
+        transform: rotate(45deg) translate(0px, 0px);
+    }
+    .nav_toggle.open > span:nth-child(2){
+        display: none;
+    }
+    .nav_toggle.open > span:nth-child(3){
+        transform: rotate(-45deg) translate(-5px, 1px);
+        
+    }
+}

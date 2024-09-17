@@ -1,0 +1,187 @@
+@use '../base/variables' as v;
+
+@media(max-width: 1200px){
+    html{
+        font-size: 55%;
+    }
+    .menu-icon{
+        display: none;
+    }
+}
+@media(max-width: 991px){
+    .menu-icon{
+        display: none;
+    }
+    .header{
+        padding: 2rem 4%;
+    }
+    section{
+        padding: 10rem 4% 2rem;
+    }
+    .home{
+        padding: 6rem 4%;
+    }
+    .map-interactive{
+        width: 100%;
+    }
+    .footer{
+        padding: 2rem 4%;
+    }
+}
+@media(max-width: 768px){
+    .rooms{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0rem;
+        max-width: 100%;
+    }
+    .App-header{
+        width: 100%;
+        height: 6rem;
+    }
+    // .navbar{
+    //     margin-left: -12rem;
+    // }
+    .menu-icon{
+        display: flex;
+        cursor: pointer;
+        margin-top: -2.4rem;
+        justify-content: end;
+    }
+    section{
+        padding: 10rem 4% 2rem;
+    }
+    .map-interactive{
+        width: 100%;
+    }
+}
+
+@media(max-width: 600px){
+
+    div{
+        & .rooms{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0rem;
+        margin: 1rem;
+        }
+    }
+
+    section{
+        padding: 1rem 4% 2rem;
+    }
+    .header{
+        width: 100%;
+    }
+    .menu-icon{
+        display: flex;
+        cursor: pointer;
+        margin-top: -2.4rem;
+        justify-content: end;
+    }
+    .map-interactive{
+        width: 100%;
+    }
+    .about{
+        width: 100%;
+    }
+    .navbar .active{
+        left: 131px;
+        transition-delay: 0s;
+        display: flex;
+        flex-direction: column;
+        top: 5.5rem;
+     }
+    .navbar{
+         position: absolute;
+         padding: 1rem 4%;
+         transition-delay: .25s;
+         transition: .25s ease;
+         & a{
+            margin-top: 1rem;
+            display: block;
+            font-size: 2rem;
+            margin: 3rem;
+         }
+
+
+        }
+        .skills .skills-content .progress{
+            margin: .2rem 0rem;
+           margin-left: 5%;
+        }
+        div{
+            &  .payments {
+                margin: auto;
+                height: 72vh;
+                &.payment_form{
+                    margin: auto;
+                    & .input_form{
+                        width: 90%;
+                    }
+                }
+            } 
+        }
+
+
+
+        .footer{
+            flex-direction: column;
+        }
+
+}
+
+@media(max-width: 450px){
+
+    .payments {
+
+        margin: auto;
+        &.payment_form{
+            margin: auto;
+            & .input_form{
+                width: 90%;
+            }
+        }
+    } 
+
+    section{
+        & .pay{
+            margin: 1rem;
+            padding: 1rem;
+        }
+        padding: 1rem;
+    }
+    .map-interactive{
+        display: none;
+    }
+    .footer{
+        flex-direction: column;
+    }
+
+    div{
+        & .rooms{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0rem;
+        margin: 1rem;
+
+        & .seccion_room{
+            width: 95%;
+
+            & .img_room{
+                width: 95%;
+                margin: 1rem;
+            }
+            & .totales{
+                display: grid;
+                justify-content: center;
+                & label{
+                    & input{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        }
+    }
+}

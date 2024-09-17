@@ -1,0 +1,23 @@
+@use '../../../../style/components/base/variables'as v;
+@use '../../../../style/components/base/mixins' as m;
+
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.skills{
+    min-height: auto;
+    padding-bottom: 7rem;
+    background-color: v.$bg-color;
+        & .skills-content{
+            display: flex;
+            justify-content: center;
+            margin: 4rem -3rem;
+            & .images{
+                border-radius: 10px;
+                width: 40%;
+                height: 40rem;
+                margin: auto;
+        }
+    }
+}

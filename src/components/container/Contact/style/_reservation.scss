@@ -1,0 +1,99 @@
+@use '../../../../style/components/base/variables' as v;
+@use '../../../../style/components/base/mixins' as m;
+
+
+.contact{
+    min-height: auto;
+    padding-bottom: 7rem;
+    background-color: v.$bg-color;
+    & fieldset{
+        border: solid 2px v.$main-color;
+        border-radius: 10px;
+        margin-bottom: 3rem;
+        padding: 3rem;
+    }
+    & form{
+        & .focus{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 100%;
+                background-color: v.$bg-color;
+                z-index: -1;
+                transition: all .5s ease;
+            }
+            &:hover{
+                width: 100%;
+        }
+        & .textarea-field{
+            position: relative;
+            margin: .8rem 0 2.7rem;
+            display: flex;
+            & textarea{
+                width: 100%;
+                height: 100%;
+                padding: 1.6rem;
+                font-size: 1.6rem;
+                color: v.$text-color;
+                background: transparent;
+                border-radius: .6rem;
+                border: .2rem solid v.$main-color;
+                resize: none;
+                &::placeholder{
+                    color: v.$text-color;
+                }
+            }
+        }
+        max-width: 70rem;
+        margin: 0 auto;
+        text-align: center;
+        & .input-box{
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            & .input-field{
+                position: relative;
+                width: 49%;
+                margin: .8rem 0;
+                & input, .options{
+                    width: 100%;
+                    height: 100%;
+                    padding: 1.6rem;
+                    font-size: 1.6rem;
+                    color: v.$text-color;
+                    background: transparent;
+                    border-radius: .6rem;
+                    border: .2rem solid v.$main-color;
+                    &::placeholder{
+                        color: v.$text-color;
+                    }
+                    & select{
+                        background: transparent;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.total-section{
+    // background-color: red;
+    border-radius: 10px;
+    border: solid 2px v.$main-color;
+    margin-bottom: 2rem;
+    display: grid;
+    justify-content: center;
+
+    & h3, p{
+        color: black;
+    }
+
+}
+
+legend{
+    text-transform: uppercase;
+}
