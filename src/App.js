@@ -4,7 +4,7 @@ import Home from './components/container/home/Home.jsx'; // Asegúrate de que la
 // Verifica las rutas de importación.
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/container/NavBar/NavBar.jsx'; // Corrige el nombre del archivo importado si es necesario.
-import useFloatingButton from './components/hooks /Floatbuttom.jsx';
+import useFloatingButton from './components/hooks/Floatbuttom.jsx';
 import Footer from './components/container/footer/Footer.jsx';
 import Rooms from './components/container/rooms/Rooms.jsx';
 import Contact from './components/container/Contact/Contact.jsx';

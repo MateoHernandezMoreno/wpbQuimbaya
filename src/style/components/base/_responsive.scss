@@ -9,6 +9,7 @@
     }
 }
 @media(max-width: 991px){
+
     .menu-icon{
         display: none;
     }
@@ -57,6 +58,17 @@
 }
 
 @media(max-width: 600px){
+.contact{
+    & form{
+        & .input-box{
+            flex-direction: column;
+            align-content: center;
+            & .input-field{
+                width: 90%;
+            }
+        }
+    }
+}
 
     div{
         & .rooms{

@@ -1,7 +1,7 @@
 // src/hooks/useCarouselImages.js
 import { useState, useEffect } from 'react';
 
-const useCarouselImages = (markerLabel) => {
+function useCarouselImages(markerLabel) {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
@@ -10,7 +10,7 @@ const useCarouselImages = (markerLabel) => {
         // Mapear el nombre del marcador a un set específico de imágenes
         let imagesContext;
         try {
-            imagesContext = require.context(`../../resources/carousel/${markerLabel.toLowerCase()}`,false,/\.(png|jp?g|svg)$/);
+            imagesContext = require.context(`../../resources/carousel/${markerLabel.toLowerCase()}`, false, /\.(png|jp?g|svg)$/);
         } catch (error) {
             // Si no se encuentra ninguna imagen, devolver un array vacío o manejar error
             setImages([]);
@@ -22,6 +22,6 @@ const useCarouselImages = (markerLabel) => {
     }, [markerLabel]);
 
     return images;
-};
+}
 
 export default useCarouselImages;

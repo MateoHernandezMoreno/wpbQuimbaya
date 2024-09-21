@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Stage, Layer, Image, Circle, Text } from 'react-konva';
-import useImageHook from '../../hooks /imageHook';
-import useCarouselImg from '../../hooks /useImgCarouselHook';
-import mapImg from '../../../resources/profile/maps/Mapa Quimbaya 2023.jpg';
+import useImageHook from '../../hooks/imageHook';
+import useCarouselImg from '../../hooks/useImgCarouselHook';
+import mapImg from '../../../resources/profile/maps/Map.jpg';
 import {Modal, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Slider from 'react-slick';
@@ -24,7 +24,7 @@ const InteractiveMap = () => {
         { x: 420, y: 365, label: 'NACIMIENTO', info:"cualquier cosa", menu:'Carta del lugar'},
         { x: 616, y: 428, label: 'TROPICO', info:"cualquier cosa", menu:'Carta del lugar'},
         { x: 558, y: 375, label: 'TUMBAGA', info:"cualquier cosa", menu:'Carta del lugar'},
-        { x: 460, y: 510, label: 'CASABAE', info:"cualquier cosa", menu:'Carta del lugar'}
+        { x: 460, y: 510, label: 'CASABAE', info:"cualquier cosa", menu:'Carta del lugar'},
     ];
 
     const images = useCarouselImg(selectedMarker?.label);
@@ -32,6 +32,7 @@ const InteractiveMap = () => {
     const handleMarkerClick = (marker) => {
         setSelectedMarker(marker);
         setShowModal(true);
+        console.log(marker);
     };
 
     const handleClose = ()=>{
@@ -44,7 +45,7 @@ const InteractiveMap = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        SlidesToScroll: 1,
+        slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
     }
@@ -66,7 +67,7 @@ const InteractiveMap = () => {
                                 radius={10}
                                 fill="transparent"
                                 border="black"
-                                onClick={() => handleMarkerClick(marker.label)}
+                                onClick={() => handleMarkerClick(marker)}
 
                             />
                             <Text
@@ -81,17 +82,17 @@ const InteractiveMap = () => {
                     ))}
                 </Layer>
             </Stage>
-            <Modal show={showModal} onHiden={handleClose} centered>
+            <Modal show={showModal} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>{selectedMarker?.label}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 {images.length > 0 ?(<Slider{...sliderSettins}>
                 {images.map((imgSrc, index) =>(<div key={index} className="carousel-slide">
-                    <img src={imgSrc} alt={`Slide ${index}`} style={{width: '100%', borderRadius: '8px'}}/>
+                    <img src={imgSrc} alt={`Slider ${index}`} style={{width: '100%', borderRadius: '8px'}}/>
                 </div>))}
-                </Slider>) : (<p style={{color: 'black'}}>No hay imagenes diponibles</p>)}
-                    <h5>cualquier cosa</h5>
+                </Slider>) : (<p style={{color: 'black'}}>No hay imagenes disponibles</p>)}
+                    <h5>{selectedMarker?.label}</h5>
                     <p>{selectedMarker?.info}</p>
                     <h5>carta</h5>
                     <p>{selectedMarker?.menu}</p>

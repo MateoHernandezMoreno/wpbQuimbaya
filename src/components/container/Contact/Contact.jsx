@@ -1,29 +1,86 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import Select from 'react-select';
+import countriesList from 'react-select-country-list';
+import Modal from 'react-bootstrap/Modal';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import { ReservationContext } from './ReservationContext';
 
 const Contact = () => {
 
-  // const { ReservationDetails } = useContext(ReservationContext);
-  // const { nights, people, total } = reservationdetails;
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRoomType, setSelectedRoomType] = useState(null);
+  const [selectedRoom, setSelecteRoom] = useState("");
 
-  // Estado para manejar el número de personas y el total a pagar
-  const [numPersons, setNumPersons] = useState(0);
+  //habitaciones
+
+  const hotelRooms = {
+    dobleSencilla: [73, 74, 75, 31, 27, 72, 71, 70, 44, 43, 42, 41, 40 ],
+    dobleJacuzzi: [ 28, 29, 30],
+    tripe: [5, 4, 3, 2, 20, 21, 22, 23, 78, 77, 76, 6, 7, 8, 9, 16, 10, 11, 12, 13, 14],
+    cuadruple: [12, 60, 61, 62, 59, 50, 51, 52, 53, 54, 45, 46, 47, 48, 49, 39, 38, 37, 36, 55, 56, 57, 58]
+  };
+
+  const handledRoomTypeChange = (event) =>{
+    const roomType = event.target.value;
+    setSelectedRoomType(roomType);
+    setShowModal(true)
+  };
+
+  const handleRoomClick = (room) =>{
+    setSelecteRoom(room); //guarda la habitacion seleccionada
+    setShowModal(false); //cerrar el modal despues de seleccionar la habitacions
+  };
+
+  const renderHighLightedRooms = () =>{
+    return(
+      hotelRooms[selectedRoomType]?.map(room => (
+        <div key={room} 
+        className={`room ${room} highLighted`} onClick={()=>     
+          handleRoomClick(room)}>{room}</div>))
+    )
+   
+  };
+
+  const location = useLocation();
+  const bookingData = location.state || {};//recibe los datos enviados
+
+  const [numPersons, setNumPersons] = useState(bookingData.people || 0);
+  const [roomType, setRoomType] = useState(bookingData.roomType || " ");
+  const [nights, setNights] = useState(bookingData.nights || 1);
   const [total, setTotal] = useState(0);
+
+  const[selectedCountry, setSelectedCountry] = useState(null); 
+  const countries = countriesList().getData();
+
+  const handledChange = (selectedOption) =>{
+    setSelectedCountry(selectedOption)
+  }
+  // Estado para manejar el número de personas y el total a pagar
+  //const [numPersons, setNumPersons] = useState(0);
+  //const [total, setTotal] = useState(0);
 
   // Función para manejar cambios en el input de personas
   const handlePersonsChange = (e) => {
     const persons = parseInt(e.target.value, 10) || 0; // Convierte a número y maneja entradas no válidas
     setNumPersons(persons);
+    calculateTotal (persons, nights);    
+  };
 
-    // Supongamos que el costo por persona es de $100 y hay un impuesto del 10%
+  const handleChangeNights = (e) =>{
+    const nights = parseInt(e.target.value, 10) || 0 ;
+    setNights(nights);
+    calculateTotal(numPersons, nights);
+  }
+  // Supongamos que el costo por persona es de $100 y hay un impuesto del 10%
+  const calculateTotal = (persons, nights) =>{
     const costPerPerson = 100;
     const taxRate = 0.10;
     const subtotal = persons * costPerPerson;
     const totalWithTax = subtotal + subtotal * taxRate;
 
     setTotal(totalWithTax);
-  };
+  }
 
   return (
     <div>
@@ -42,7 +99,42 @@ const Contact = () => {
                 <input
                   type="text"
                   name="footer-text"
-                  placeholder="Full Name"
+                  placeholder="Name"
+                  required=""
+                />
+                <span className="focus" />
+              </div>
+              <div className="input-field">
+                <input
+                  type="text"
+                  name="footer-text"
+                  placeholder="Last Name"
+                  required=""
+                />
+                <span className="focus" />
+              </div>
+              <div className="input-field">
+                <Select className='options op2' 
+                  options={countries} 
+                  //lista de paises
+                  value={selectedCountry}
+                  onChange={handledChange}
+                  placeholder='Nacionalidad'
+                />
+                <span className="focus" />
+              </div>
+              <div className="input-field2">
+              <select className="option ">
+                <option>C.C</option>
+                <option>C.E</option>
+                <option>T.I</option>
+                <option>Passport</option>
+                <option>R.C</option>
+              </select>
+                <input
+                  type="number"
+                  name="number"
+                  placeholder="Number"
                   required=""
                 />
                 <span className="focus" />
@@ -76,7 +168,13 @@ const Contact = () => {
                 />
                 <span className="focus" />
               </div>
-              <div className="input-field">
+            </div>
+          </fieldset>
+          <fielset>
+            <legend>Informacion de reserva</legend>
+            <div className="input-box">
+            <div className="input-field">
+              {/* <label>Numero de personas</label> */}
                 <input
                   min="1"
                   max="100"
@@ -89,8 +187,60 @@ const Contact = () => {
                 />
                 <span className="focus" />
               </div>
-            </div>
-            <div className="textarea-field">
+              <div className="input-field">
+              {/* <label>tipo de habitacion</label> */}
+                <input type="text"
+                  name="roomType"
+                  value={roomType}
+                  onChange={handledRoomTypeChange}
+                  placeholder="tipo de habitacion"
+                />
+                <span className="focus" />
+              </div>
+              <div className="input-field">
+              {/* <label>Numero de noches</label> */}
+                <input
+                  min="1"
+                  max="100"
+                  type="number"
+                  name="nights"
+                  placeholder="nights"
+                  required=""
+                  value={nights}
+                  onChange={handleChangeNights}
+                />
+                <span className="focus" />
+              </div>
+              <div className="input-field">
+                {/* <label>Habitacion</label> */}
+                <input
+                  value={selectedRoom}
+                  readOnly
+                  type="text"
+                  name="number"
+                  placeholder="habitacion"
+                  required=""
+                />
+                <span className="focus" />
+              </div>
+              <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Elige una Habitacion</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="hotel-map">
+                    {renderHighLightedRooms()}
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button onClick={()=>
+                    setShowModal(false)}>Cerrar</button>
+                  </Modal.Footer>
+              </Modal>
+            </div>  
+          </fielset>
+          <fielset>
+          <div className="textarea-field">
               <textarea
                 name="text"
                 placeholder="Observations"
@@ -101,7 +251,7 @@ const Contact = () => {
               />
               <span className="focus" />
             </div>
-          </fieldset>
+          </fielset>
 
           {/* Nueva sección para mostrar el total a pagar */}
           <div className="total-section">

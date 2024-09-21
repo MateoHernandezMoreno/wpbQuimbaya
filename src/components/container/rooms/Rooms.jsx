@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Contact from '../Contact/Contact'; 
+import { useNavigate } from 'react-router-dom';
+// import Contact from '../Contact/Contact'; 
 import imgPrueba from '../../../resources/carousel/396999027_18393830878001859_1623414648970925342_n.jpg';
 
 
 const RoomsPage = () => {
+
+  const navigate = useNavigate();
+
+  const handleBookNow = (typeRoom) => {
+    const {nights, people, room} = roomState[typeRoom];
+    const bookingData = {
+      roomType : typeRoom,
+      people, nights,
+      rooms: room,
+    };
+    navigate('/contact', {state: bookingData});
+  }
+  
   // Estados independientes para cada habitación
   const [roomState, setRoomState] = useState({
     dobleSencilla: { nights: 1, people: 1, room: 1 },
@@ -94,7 +107,7 @@ const RoomsPage = () => {
          
       </div>
         <div className="btn-box">
-            <Link to="/contact" className="btn btn2">Book Now</Link>
+        <button onClick={() => {handleBookNow('dobleSencilla')}} className="btn btn2">Book Now</button>
         </div>
       </section>
 
@@ -143,7 +156,7 @@ const RoomsPage = () => {
         
       </div>
         <div className="btn-box">
-            <Link to="/contact" className="btn btn2">Book Now</Link>
+        <button onClick={() => {handleBookNow('dobleJacuzzi')}} className="btn btn2">Book Now</button>
         </div>
       </section>
 
@@ -192,7 +205,7 @@ const RoomsPage = () => {
         
       </div>
         <div className="btn-box">
-            <Link to="/contact" className="btn btn2">Book Now</Link>
+        <button onClick={() => {handleBookNow('triple')}} className="btn btn2">Book Now</button>
         </div>
       </section>
 
@@ -241,7 +254,7 @@ const RoomsPage = () => {
         
       </div>
         <div className="btn-box">
-            <Link to="/contact" element={<Contact/>} className="btn btn2">Book Now</Link>
+        <button onClick={() => {handleBookNow('cuadruple')}} className="btn btn2">Book Now</button>
         </div>
       </section>
     </div>
