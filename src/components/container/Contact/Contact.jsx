@@ -4,13 +4,13 @@ import Select from 'react-select';
 import countriesList from 'react-select-country-list';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { ReservationContext } from './ReservationContext';
+import RoomSelectionModal from './RoomSelectionModal';
 
 const Contact = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRoomType, setSelectedRoomType] = useState(null);
-  const [selectedRoom, setSelecteRoom] = useState("");
+  const [selectedRoom, setSelecteRoom] = useState(" ");
 
   //habitaciones
 
@@ -19,7 +19,13 @@ const Contact = () => {
     dobleJacuzzi: [ 28, 29, 30],
     tripe: [5, 4, 3, 2, 20, 21, 22, 23, 78, 77, 76, 6, 7, 8, 9, 16, 10, 11, 12, 13, 14],
     cuadruple: [12, 60, 61, 62, 59, 50, 51, 52, 53, 54, 45, 46, 47, 48, 49, 39, 38, 37, 36, 55, 56, 57, 58]
+
   };
+
+ const handleRoomSelection = (room) =>{
+  setSelecteRoom(room);
+  setShowModal(false);
+ }
 
   const handledRoomTypeChange = (event) =>{
     const roomType = event.target.value;
@@ -192,7 +198,6 @@ const Contact = () => {
                 <input type="text"
                   name="roomType"
                   value={roomType}
-                  onChange={handledRoomTypeChange}
                   placeholder="tipo de habitacion"
                 />
                 <span className="focus" />
@@ -215,7 +220,9 @@ const Contact = () => {
                 {/* <label>Habitacion</label> */}
                 <input
                   value={selectedRoom}
+                  id="roomSelection"
                   readOnly
+                  onClick={()=> setShowModal(true)}
                   type="text"
                   name="number"
                   placeholder="habitacion"
@@ -223,20 +230,7 @@ const Contact = () => {
                 />
                 <span className="focus" />
               </div>
-              <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Elige una Habitacion</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <div className="hotel-map">
-                    {renderHighLightedRooms()}
-                    </div>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button onClick={()=>
-                    setShowModal(false)}>Cerrar</button>
-                  </Modal.Footer>
-              </Modal>
+              <RoomSelectionModal showModal={showModal} onClose={() => setShowModal(false)} onRoomSelect={handleRoomSelection}></RoomSelectionModal>
             </div>  
           </fielset>
           <fielset>
