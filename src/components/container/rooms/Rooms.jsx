@@ -45,18 +45,22 @@ const RoomsPage = () => {
   // Cálculo de totales por tipo de habitación
   const calculateTotal = (typeRoom) => {
     const { nights, people, room } = roomState[typeRoom];
-    return prices[typeRoom] * nights * people * room;
+    return prices[typeRoom] * nights * people + room -1 ;
   };
 
   // Actualizar el estado según la habitación y el campo
   const updateRoomState = (typeRoom, field, value) => {
-    setRoomState(prevState => ({
-      ...prevState,
-      [typeRoom]: {
-        ...prevState[typeRoom],
-        [field]: value,
-      },
-    }));
+    setRoomState(prevState => {
+      const maxPeople = MAX_PEOPLE_PER_ROOM[typeRoom] * prevState[typeRoom].room;
+      const newPeople = field === 'people' ? Math.min(value, maxPeople) : prevState[typeRoom].people;
+      return {
+        ...prevState,
+        [typeRoom]: {
+          ...prevState[typeRoom],
+          [field]: field === 'people' ? newPeople : value,
+        },
+      };
+    });
   };
 
 
@@ -190,7 +194,7 @@ const RoomsPage = () => {
             value={roomState.triple.people}
             min="1"
             max={MAX_PEOPLE_PER_ROOM.triple * roomState.triple.room}
-            onChange={(e) => updateRoomState('treiple', 'people', Math.min(parseInt(e.target.value),MAX_PEOPLE_PER_ROOM.triple * roomState.triple.room))}
+            onChange={(e) => updateRoomState('triple', 'people', Math.min(parseInt(e.target.value),MAX_PEOPLE_PER_ROOM.triple * roomState.triple.room))}
           />
         </label>
         <label>

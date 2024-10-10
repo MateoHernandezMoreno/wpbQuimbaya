@@ -60,11 +60,16 @@
 @media(max-width: 600px){
 .contact{
     & form{
-        & .input-box{
-            flex-direction: column;
-            align-content: center;
-            & .input-field{
-                width: 90%;
+        & fieldset{
+            & .input-box{
+                flex-direction: column;
+                align-content: center;
+                & .input-field2{
+                    width: 90%;
+                }
+                & .input-field{
+                    width: 90%;
+                }
             }
         }
     }

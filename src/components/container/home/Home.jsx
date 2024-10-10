@@ -23,7 +23,7 @@ const Home = () =>{
                  unos días bajo el sol y un lugar en el que te sentirás como en casa.</p>
                 <div className="btn-box">
                 <div className="btn-box btns">
-                <Link to="/contact" alement={"/contact"}>
+                <Link to="/rooms" alement={"/rooms"}>
                 <button type="submit" className="btn">
                     Book Now
                 </button>
